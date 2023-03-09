@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title></title>
+    <style>
+      body {
+        height: 100vh;
+        background-color: #fff;
+        overflow: hidden;
+      }
+
+      .snowflake {
+        color: #fff;
+      }
+
+      @-webkit-keyframes snowflakes-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes snowflakes-fall-1 {
+        0% {
+          top: -15%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-1 {
+        0% {
+          top: -15%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes snowflakes-fall-2 {
+        0% {
+          top: -20%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-2 {
+        0% {
+          top: -20%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+
+      @-webkit-keyframes snowflakes-shake-0 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-0 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(50px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-1 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(60px);
+          transform: translateX(60px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-1 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(60px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-2 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(70px);
+          transform: translateX(70px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-2 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(70px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-3 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(80px);
+          transform: translateX(80px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-3 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(80px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-4 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(90px);
+          transform: translateX(90px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-4 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(90px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10%;
+        z-index: 9999;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+        -webkit-animation-timing-function: linear, ease-in-out;
+        -webkit-animation-iteration-count: infinite, infinite;
+        -webkit-animation-play-state: running, running;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        animation-play-state: running, running;
+      }
+    </style>
+    <script>
+      const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
+      const COLOR_ARRAY = [
+        '#ff2f8e',
+        '#ffd600',
+        '#66df48',
+        '#6a77dd',
+        '#9803ce',
+        '#dd1803',
+        '#ea8626',
+        '#00e41c',
+        '#0496d8',
+        '#1841b7',
+        '#600096',
+        'pink',
+        'hotpink',
+        '#ff0069',
+        '#ff4200',
+        'red',
+        'orange',
+        'teal',
+        'aqua',
+        'blueviolet',
+        'chartreuse',
+        'coral',
+        'crimson',
+        'cyan',
+      ];
+      const CONFETTI_ARRAY = ['•', '·', '°', '▪', '•']; //, '❘', '❙'
+      const FLAKE_AMOUNT = randNumber(500, 800);
+      const MAX_ANIMATION_DURATION = 15;
+      const populate = () => {
+        const flakeContainer = document.getElementById('snowflakes');
+
+        for (let i = 0; i < FLAKE_AMOUNT; i++) {
+          const newDiv = document.createElement('div');
+
+          const animationStartOffset = randNumber(0, MAX_ANIMATION_DURATION * 10) / 10;
+          const delayOffset = randNumber(5, 10) / 10;
+          const delay = `${animationStartOffset}s,${delayOffset}s`;
+
+          const animation = `snowflakes-fall-0, snowflakes-shake-0`;
+          const huge = randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1);
+          // const fontSize = huge ? randNumber(255, 375) / 100 : randNumber(150, 250) / 100;
+          const fontSize = randNumber(150, 450) / 100;
+          const color = COLOR_ARRAY[randNumber(0, COLOR_ARRAY.length - 1)];
+          const text = CONFETTI_ARRAY[randNumber(0, CONFETTI_ARRAY.length - 1)];
+
+          newDiv.style.setProperty('z-index', 100);
+          newDiv.innerText = text;
+          newDiv.id = `div${i}`;
+
+          newDiv.style.setProperty('color', color);
+          newDiv.style.setProperty('left', `${randNumber(-10, 100)}%`);
+          newDiv.style.setProperty('-webkit-animation-delay', delay);
+          newDiv.style.setProperty('animation-delay', delay);
+          newDiv.style.setProperty('-webkit-animation-name', animation);
+          newDiv.style.setProperty('animation-name', animation);
+          newDiv.style.setProperty('font-size', `${fontSize}em`);
+          newDiv.setAttribute('class', `snowflake`);
+
+          const durationLength1 = randNumber(10, MAX_ANIMATION_DURATION);
+          const durationLength2 = durationLength1 > 10 ? durationLength1 / randNumber(2, 3) : randNumber(40, 60) / 10;
+          const duration = `${durationLength1}s, ${durationLength2}s`;
+          newDiv.style.setProperty('-webkit-animation-duration', duration);
+          newDiv.style.setProperty('animation-duration', duration);
+
+          flakeContainer.append(newDiv);
+        }
+        console.log({ FLAKE_AMOUNT });
+      };
+
+      window.addEventListener('load', () => {
+        populate();
+      });
+
+      document.onvisibilitychange = () => {
+        if (document.visibilityState === 'hidden') {
+          const flakeContainer = document.getElementById('snowflakes');
+          flakeContainer.remove();
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="snowflakes" id="snowflakes" aria-hidden="true"></div>
+  </body>
+</html>
