@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title></title>
+    <style>
+      body {
+        height: 100vh;
+        background-color: #fff;
+        overflow: hidden;
+      }
+
+      .snowflake {
+        color: #fff;
+      }
+
+      @-webkit-keyframes confetticss-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes confetticss-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes confetticss-shake-0 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes confetticss-shake-0 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(50px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10%;
+        z-index: 9999;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+        -webkit-animation-timing-function: linear, ease-in-out;
+        -webkit-animation-iteration-count: infinite, infinite;
+        -webkit-animation-play-state: running, running;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        animation-play-state: running, running;
+      }
+    </style>
+    <script>
+      const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
+      const COLOR_ARRAY = ['#ffddf4', '#ffc0cb', '#ffcff1', '#fadadd', '#ffcff1', '#ffb7c5'];
+      const CONFETTI_ARRAY = ['❀'];
+      const FLAKE_AMOUNT = randNumber(300, 500);
+      const MAX_ANIMATION_DURATION = 15;
+      const populate = () => {
+        const flakeContainer = document.getElementById('container');
+
+        for (let i = 0; i < FLAKE_AMOUNT; i++) {
+          const newDiv = document.createElement('div');
+
+          const animationStartOffset = randNumber(0, MAX_ANIMATION_DURATION * 10) / 10;
+          const delayOffset = randNumber(5, 10) / 10;
+          const delay = `${animationStartOffset}s,${delayOffset}s`;
+
+          const animation = `confetticss-fall-0, confetticss-shake-0`;
+          const huge = randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1);
+          const fontSize = randNumber(150, 450) / 100;
+          const text = CONFETTI_ARRAY[randNumber(0, CONFETTI_ARRAY.length - 1)];
+
+          newDiv.style.setProperty('z-index', 100);
+          newDiv.innerText = text;
+          newDiv.id = `div${i}`;
+
+          const color = COLOR_ARRAY[randNumber(0, COLOR_ARRAY.length - 1)];
+          newDiv.style.setProperty('color', color);
+          newDiv.style.setProperty('left', `${randNumber(-10, 100)}%`);
+          newDiv.style.setProperty('-webkit-animation-delay', delay);
+          newDiv.style.setProperty('animation-delay', delay);
+          newDiv.style.setProperty('-webkit-animation-name', animation);
+          newDiv.style.setProperty('animation-name', animation);
+          newDiv.style.setProperty('font-size', `${fontSize}em`);
+          newDiv.setAttribute('class', `snowflake`);
+
+          const durationLength1 = randNumber(10, MAX_ANIMATION_DURATION);
+          const durationLength2 = durationLength1 > 10 ? durationLength1 / randNumber(2, 3) : randNumber(40, 60) / 10;
+          const duration = `${durationLength1}s, ${durationLength2}s`;
+          newDiv.style.setProperty('-webkit-animation-duration', duration);
+          newDiv.style.setProperty('animation-duration', duration);
+
+          flakeContainer.append(newDiv);
+        }
+        console.log({ FLAKE_AMOUNT });
+      };
+
+      window.addEventListener('load', () => {
+        populate();
+      });
+
+      document.onvisibilitychange = () => {
+        if (document.visibilityState === 'hidden') {
+          const confettiContainer = document.getElementById('container');
+          confettiContainer.remove();
+        } else {
+          const body = document.querySelector('body');
+          const confettiContainer = document.createElement('div');
+          confettiContainer.setAttribute('class', 'container');
+          confettiContainer.setAttribute('id', 'container');
+          confettiContainer.setAttribute('aria-hidden', 'true');
+          body.append(confettiContainer);
+          populate();
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="container" id="container" aria-hidden="true"></div>
+  </body>
+</html>
