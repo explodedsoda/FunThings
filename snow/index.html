@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title></title>
+    <style>
+      body {
+        height: 100vh;
+        background-color: #000;
+        overflow: hidden;
+      }
+
+      .snowflake {
+        color: #fff;
+      }
+
+      .dropshadow-lg {
+        text-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 25px #fff;
+      }
+
+      .dropshadow-md {
+        text-shadow: 0 0 5px #fff, 0 0 7.5px #fff, 0 0 12px #fff;
+      }
+
+      @-webkit-keyframes snowflakes-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-0 {
+        0% {
+          top: -10%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes snowflakes-fall-1 {
+        0% {
+          top: -15%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-1 {
+        0% {
+          top: -15%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @-webkit-keyframes snowflakes-fall-2 {
+        0% {
+          top: -20%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+      @keyframes snowflakes-fall-2 {
+        0% {
+          top: -20%;
+        }
+        100% {
+          top: 100%;
+        }
+      }
+
+      @-webkit-keyframes snowflakes-shake-0 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-0 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(50px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-1 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(60px);
+          transform: translateX(60px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-1 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(60px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-2 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(70px);
+          transform: translateX(70px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-2 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(70px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-3 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(80px);
+          transform: translateX(80px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-3 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(80px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+      @-webkit-keyframes snowflakes-shake-4 {
+        0% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+        50% {
+          -webkit-transform: translateX(90px);
+          transform: translateX(90px);
+        }
+        100% {
+          -webkit-transform: translateX(0px);
+          transform: translateX(0px);
+        }
+      }
+      @keyframes snowflakes-shake-4 {
+        0% {
+          transform: translateX(0px);
+        }
+        50% {
+          transform: translateX(90px);
+        }
+        100% {
+          transform: translateX(0px);
+        }
+      }
+
+      .snowflake {
+        position: fixed;
+        top: -10%;
+        z-index: 9999;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        cursor: default;
+        -webkit-animation-timing-function: linear, ease-in-out;
+        -webkit-animation-iteration-count: infinite, infinite;
+        -webkit-animation-play-state: running, running;
+        animation-timing-function: linear, ease-in-out;
+        animation-iteration-count: infinite, infinite;
+        animation-play-state: running, running;
+      }
+    </style>
+    <script>
+      const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
+      const flakeArray = ['❅', '❄', '✳', '✴', '•', '·', '*', '❅', '❄'];
+      const LOWER_FLAKE_AMOUNT = randNumber(100, 400);
+      const UPPER_FLAKE_AMOUNT = randNumber(401, 1000);
+      const FLAKE_AMOUNT = randNumber(LOWER_FLAKE_AMOUNT, UPPER_FLAKE_AMOUNT);
+      const MAX_ANIMATION_DURATION = randNumber(15, 45);
+      const populate = () => {
+        const flakeContainer = document.getElementById('snowflakes');
+
+        for (let i = 0; i < FLAKE_AMOUNT; i++) {
+          const newDiv = document.createElement('div');
+
+          const animationStartOffset = randNumber(0, MAX_ANIMATION_DURATION * 10) / 10;
+          const delayOffset = randNumber(5, 10) / 10;
+          const delay = `${animationStartOffset}s,${delayOffset}s`;
+
+          const animation = `snowflakes-fall-${randNumber(0, 2)}, snowflakes-shake-${randNumber(0, 4)}`;
+          const huge = randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1);
+          const fontSize = huge ? randNumber(255, 425) / 100 : randNumber(80, 250) / 100;
+          // const text = huge ? flakeArray[randNumber(0, 1)] : flakeArray[randNumber(0, flakeArray.length - 1)];
+          const text = flakeArray[randNumber(0, flakeArray.length - 1)];
+
+          if (huge) {
+            newDiv.style.setProperty('z-index', 100);
+          }
+
+          if (fontSize >= 4) {
+            newDiv.style.setProperty('top', '-200px');
+          }
+
+          newDiv.innerText = text;
+          newDiv.id = `div${i}`;
+
+          newDiv.style.setProperty('left', `${randNumber(-10, 100)}%`);
+          newDiv.style.setProperty('-webkit-animation-delay', delay);
+          newDiv.style.setProperty('animation-delay', delay);
+          newDiv.style.setProperty('-webkit-animation-name', animation);
+          newDiv.style.setProperty('animation-name', animation);
+          newDiv.style.setProperty('font-size', `${fontSize}em`);
+          newDiv.setAttribute('class', `snowflake`);
+
+          if (text === '·' || text === '•') {
+            newDiv.style.setProperty('font-size', `${randNumber(1, 2)}em`);
+            newDiv.setAttribute('class', `snowflake dropshadow-md`);
+          }
+
+          if (randNumber(0, 100) < randNumber(25, 75)) {
+            newDiv.setAttribute('class', `snowflake dropshadow-lg`);
+          }
+
+          // if (huge) {
+
+          // }
+          // const uno = 10; //randNumber(MAX_ANIMATION_DURATION - 2, MAX_ANIMATION_DURATION);
+          // const dos = 10; //randNumber(50, 80) / 10;
+          // const largeDuration = `${uno}s, ${dos}s`;
+          // newDiv.style.setProperty('-webkit-animation-duration', largeDuration);
+          // newDiv.style.setProperty('animation-duration', largeDuration);
+          // } // else {
+          const durationLength1 = randNumber(MAX_ANIMATION_DURATION / 3, MAX_ANIMATION_DURATION); // randNumber(8, MAX_ANIMATION_DURATION);
+          const durationLength2 = durationLength1 > 10 ? durationLength1 / randNumber(2, 3) : randNumber(40, 60) / 10;
+          const duration = `${durationLength1}s, ${durationLength2}s`;
+          newDiv.style.setProperty('-webkit-animation-duration', duration);
+          newDiv.style.setProperty('animation-duration', duration);
+          // }
+
+          flakeContainer.append(newDiv);
+        }
+        console.log({ FLAKE_AMOUNT });
+      };
+
+      window.addEventListener('load', () => {
+        populate();
+      });
+
+      document.onvisibilitychange = () => {
+        if (document.visibilityState === 'hidden') {
+          const flakeContainer = document.getElementById('snowflakes');
+          flakeContainer.remove();
+        } else {
+          const body = document.querySelector('body');
+          const newDiv = document.createElement('div');
+          newDiv.setAttribute('class', 'snowflakes');
+          newDiv.setAttribute('id', 'snowflakes');
+          newDiv.setAttribute('aria-hidden', 'true');
+          body.append(newDiv);
+          populate();
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <div class="snowflakes" id="snowflakes" aria-hidden="true"></div>
+  </body>
+</html>
