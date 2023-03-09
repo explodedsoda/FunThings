@@ -11,7 +11,12 @@
         background-color: #fff;
         overflow: hidden;
       }
-
+      /* Dark theme */
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #000;
+        }
+      }
       @-webkit-keyframes confetticss-fall-0 {
         0% {
           top: -10%;
@@ -75,7 +80,7 @@
     <script>
       const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
       const COLOR_ARRAY = ['green', 'darkgreen', 'limegreen', 'forestgreen', '#569956'];
-      const FLAKE_AMOUNT = randNumber(200, 500);
+      const FLAKE_AMOUNT = randNumber(100, 300);
       const CONFETTI_ARRAY = ['☘', '·', '•'];
 
       const MAX_ANIMATION_DURATION = 15;
@@ -90,7 +95,7 @@
           const delay = `${animationStartOffset}s,${delayOffset}s`;
 
           const animation = `confetticss-fall-0, confetticss-shake-0`;
-          const fontSize = randNumber(150, 450) / 100;
+          const fontSize = randNumber(120, 320) / 100;
           const color = COLOR_ARRAY[randNumber(0, COLOR_ARRAY.length - 1)];
           const text = '☘';
 
