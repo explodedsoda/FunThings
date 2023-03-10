@@ -3,83 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title></title>
-    <style>
-      body {
-        height: 100vh;
-        background-color: #fff;
-        overflow: hidden;
-      }
-      /* Dark theme */
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #000;
-        }
-      }
-      .snowflake {
-        color: #fff;
-      }
-
-      @-webkit-keyframes confetticss-fall-0 {
-        0% {
-          top: -10%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @keyframes confetticss-fall-0 {
-        0% {
-          top: -10%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @-webkit-keyframes confetticss-shake-0 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(50px);
-          transform: translateX(50px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes confetticss-shake-0 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(50px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-
-      .snowflake {
-        position: fixed;
-        top: -10%;
-        z-index: 9999;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        cursor: default;
-        -webkit-animation-timing-function: linear, ease-in-out;
-        -webkit-animation-iteration-count: infinite, infinite;
-        -webkit-animation-play-state: running, running;
-        animation-timing-function: linear, ease-in-out;
-        animation-iteration-count: infinite, infinite;
-        animation-play-state: running, running;
-      }
-    </style>
+    <link rel="stylesheet" href="../css/style.css" />
     <script>
       const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
       const COLOR_ARRAY = ['#ffddf4', '#ffc0cb', '#ffcff1', '#fadadd', '#ffcff1', '#ffb7c5'];
@@ -113,7 +37,7 @@
           newDiv.style.setProperty('-webkit-animation-name', animation);
           newDiv.style.setProperty('animation-name', animation);
           newDiv.style.setProperty('font-size', `${fontSize}em`);
-          newDiv.setAttribute('class', `snowflake`);
+          newDiv.setAttribute('class', `confetti`);
 
           const durationLength1 = randNumber(10, MAX_ANIMATION_DURATION);
           const durationLength2 = durationLength1 > 10 ? durationLength1 / randNumber(2, 3) : randNumber(40, 60) / 10;
