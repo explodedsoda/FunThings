@@ -218,9 +218,9 @@
     </style>
     <script>
       const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
-      const flakeArray = ['❅', '❄', '✳', '✴', '•', '·', '*', '❅', '❄'];
+      const flakeArray = ['❅', '❄', '✳', '✴', '·', '*', '❅', '❄'];
       const LOWER_FLAKE_AMOUNT = randNumber(100, 400);
-      const UPPER_FLAKE_AMOUNT = randNumber(401, 1000);
+      const UPPER_FLAKE_AMOUNT = randNumber(401, 1500);
       const FLAKE_AMOUNT = randNumber(LOWER_FLAKE_AMOUNT, UPPER_FLAKE_AMOUNT);
       const MAX_ANIMATION_DURATION = randNumber(15, 45);
       const populate = () => {
@@ -235,16 +235,11 @@
 
           const animation = `snowflakes-fall-${randNumber(0, 2)}, snowflakes-shake-${randNumber(0, 4)}`;
           const huge = randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1) && randNumber(0, 1);
-          const fontSize = huge ? randNumber(255, 425) / 100 : randNumber(80, 250) / 100;
-          // const text = huge ? flakeArray[randNumber(0, 1)] : flakeArray[randNumber(0, flakeArray.length - 1)];
-          const text = flakeArray[randNumber(0, flakeArray.length - 1)];
+          const fontSize = huge ? randNumber(80, 100) / 100 : randNumber(30, 75) / 100;
+          const text = huge ? flakeArray[randNumber(0, 1)] : flakeArray[randNumber(0, flakeArray.length - 1)];
 
           if (huge) {
             newDiv.style.setProperty('z-index', 100);
-          }
-
-          if (fontSize >= 4) {
-            newDiv.style.setProperty('top', '-200px');
           }
 
           newDiv.innerText = text;
@@ -258,24 +253,10 @@
           newDiv.style.setProperty('font-size', `${fontSize}em`);
           newDiv.setAttribute('class', `snowflake`);
 
-          if (text === '·' || text === '•') {
-            newDiv.style.setProperty('font-size', `${randNumber(1, 2)}em`);
-            newDiv.setAttribute('class', `snowflake dropshadow-md`);
-          }
-
           if (randNumber(0, 100) < randNumber(25, 75)) {
             newDiv.setAttribute('class', `snowflake dropshadow-lg`);
           }
 
-          // if (huge) {
-
-          // }
-          // const uno = 10; //randNumber(MAX_ANIMATION_DURATION - 2, MAX_ANIMATION_DURATION);
-          // const dos = 10; //randNumber(50, 80) / 10;
-          // const largeDuration = `${uno}s, ${dos}s`;
-          // newDiv.style.setProperty('-webkit-animation-duration', largeDuration);
-          // newDiv.style.setProperty('animation-duration', largeDuration);
-          // } // else {
           const durationLength1 = randNumber(MAX_ANIMATION_DURATION / 3, MAX_ANIMATION_DURATION); // randNumber(8, MAX_ANIMATION_DURATION);
           const durationLength2 = durationLength1 > 10 ? durationLength1 / randNumber(2, 3) : randNumber(40, 60) / 10;
           const duration = `${durationLength1}s, ${durationLength2}s`;
