@@ -9,6 +9,7 @@ body {
     background-color: #000;
   }
 }
+
 .confetti {
   color: #fff;
 }
@@ -190,7 +191,7 @@ body {
 
 .confetti {
   position: fixed;
-  top: -10%;
+  top: -15%;
   z-index: 9999;
   -webkit-user-select: none;
   -moz-user-select: none;
