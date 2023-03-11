@@ -3,226 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <title></title>
-    <style>
-      body {
-        height: 100vh;
-        background-color: #000;
-        overflow: hidden;
-      }
-
-      .snowflake {
-        color: #fff;
-      }
-
-      .dropshadow-lg {
-        text-shadow: 0 0 10px #fff, 0 0 15px #fff, 0 0 25px #fff;
-      }
-
-      .dropshadow-md {
-        text-shadow: 0 0 5px #fff, 0 0 7.5px #fff, 0 0 12px #fff;
-      }
-
-      @-webkit-keyframes snowflakes-fall-0 {
-        0% {
-          top: -10%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @keyframes snowflakes-fall-0 {
-        0% {
-          top: -10%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @-webkit-keyframes snowflakes-fall-1 {
-        0% {
-          top: -15%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @keyframes snowflakes-fall-1 {
-        0% {
-          top: -15%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @-webkit-keyframes snowflakes-fall-2 {
-        0% {
-          top: -20%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-      @keyframes snowflakes-fall-2 {
-        0% {
-          top: -20%;
-        }
-        100% {
-          top: 100%;
-        }
-      }
-
-      @-webkit-keyframes snowflakes-shake-0 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(50px);
-          transform: translateX(50px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes snowflakes-shake-0 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(50px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-      @-webkit-keyframes snowflakes-shake-1 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(60px);
-          transform: translateX(60px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes snowflakes-shake-1 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(60px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-      @-webkit-keyframes snowflakes-shake-2 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(70px);
-          transform: translateX(70px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes snowflakes-shake-2 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(70px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-      @-webkit-keyframes snowflakes-shake-3 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(80px);
-          transform: translateX(80px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes snowflakes-shake-3 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(80px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-      @-webkit-keyframes snowflakes-shake-4 {
-        0% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-        50% {
-          -webkit-transform: translateX(90px);
-          transform: translateX(90px);
-        }
-        100% {
-          -webkit-transform: translateX(0px);
-          transform: translateX(0px);
-        }
-      }
-      @keyframes snowflakes-shake-4 {
-        0% {
-          transform: translateX(0px);
-        }
-        50% {
-          transform: translateX(90px);
-        }
-        100% {
-          transform: translateX(0px);
-        }
-      }
-
-      .snowflake {
-        position: fixed;
-        top: -10%;
-        z-index: 9999;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        cursor: default;
-        -webkit-animation-timing-function: linear, ease-in-out;
-        -webkit-animation-iteration-count: infinite, infinite;
-        -webkit-animation-play-state: running, running;
-        animation-timing-function: linear, ease-in-out;
-        animation-iteration-count: infinite, infinite;
-        animation-play-state: running, running;
-      }
-    </style>
+    <link rel="stylesheet" href="style.css" />
     <script>
       const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
-      const flakeArray = ['❅', '❄', '✳', '✴', '·', '*', '❅', '❄'];
-      const LOWER_FLAKE_AMOUNT = randNumber(100, 400);
-      const UPPER_FLAKE_AMOUNT = randNumber(401, 1500);
-      const FLAKE_AMOUNT = randNumber(LOWER_FLAKE_AMOUNT, UPPER_FLAKE_AMOUNT);
+      let userAgent;
+      let flakeArray = ['❅', '❄', '✳', '✴', '·', '*', '❅', '❄'];
+      let lowerFlake = randNumber(100, 400);
+      let upperFlake = randNumber(401, 1500);
+
+      if (/Android|iPhone/i.test(navigator.userAgent)) {
+        userAgent = 'mobile';
+      }
+      if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+        userAgent = 'mobile';
+      }
+
+      if (userAgent === 'mobile') {
+        flakeArray = ['❅', '·', '*', '❅'];
+        lowerFlake = randNumber(100, 200);
+        upperFlake = randNumber(200, 500);
+      }
+
+      const FLAKE_AMOUNT = randNumber(lowerFlake, upperFlake);
       const MAX_ANIMATION_DURATION = randNumber(15, 45);
+
       const populate = () => {
         const flakeContainer = document.getElementById('snowflakes');
 
@@ -230,7 +34,7 @@
           const newDiv = document.createElement('div');
 
           const animationStartOffset = randNumber(0, MAX_ANIMATION_DURATION * 10) / 10;
-          const delayOffset = randNumber(5, 10) / 10;
+          const delayOffset = randNumber(2, 8) / 10;
           const delay = `${animationStartOffset}s,${delayOffset}s`;
 
           const animation = `snowflakes-fall-${randNumber(0, 2)}, snowflakes-shake-${randNumber(0, 4)}`;

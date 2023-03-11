@@ -6,14 +6,24 @@
     <link rel="stylesheet" href="../css/style.css" />
     <script src="../js/script.js"></script>
     <script>
+      let userAgent;
+      let lowerFlake = randNumber(100, 200);
+      let upperFlake = randNumber(200, 500);
+      if (/Android|iPhone/i.test(navigator.userAgent)) {
+        userAgent = 'mobile';
+      }
+      if (navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/iPhone/i)) {
+        userAgent = 'mobile';
+      }
+
       const COLOR_ARRAY = getNColors(randNumber(20, 50), 'hsl');
       const CONFETTI_ARRAY = ['•', '·', '°', '｡', '･', '˚'];
-      const FLAKE_AMOUNT = randNumber(500, 800);
+      const CONFETTI_AMOUNT = userAgent === 'mobile' ? randNumber(200, 400) : randNumber(500, 800);
       const MAX_ANIMATION_DURATION = 15;
       const populate = () => {
         const flakeContainer = document.getElementById('container');
 
-        for (let i = 0; i < FLAKE_AMOUNT; i++) {
+        for (let i = 0; i < CONFETTI_AMOUNT; i++) {
           const newDiv = document.createElement('div');
 
           const animationStartOffset = randNumber(0, MAX_ANIMATION_DURATION * 10) / 10;
@@ -48,7 +58,7 @@
 
           flakeContainer.append(newDiv);
         }
-        console.log({ FLAKE_AMOUNT });
+        console.log({ CONFETTI_AMOUNT });
       };
 
       window.addEventListener('load', () => {
