@@ -8,8 +8,8 @@
       const randNumber = (lower, upper) => Math.floor(Math.random() * (upper - lower + 1) + lower);
       let userAgent;
       let flakeArray = ['❅', '❄', '✳', '✴', '·', '*', '❅', '❄'];
-      let lowerFlake = randNumber(100, 400);
-      let upperFlake = randNumber(401, 1500);
+      let lowerFlake = 100;
+      let upperFlake = 400;
 
       if (/Android|iPhone/i.test(navigator.userAgent)) {
         userAgent = 'mobile';
@@ -29,6 +29,7 @@
 
       const populate = () => {
         const flakeContainer = document.getElementById('snowflakes');
+        const fragment = document.createElement('fragment');
 
         for (let i = 0; i < FLAKE_AMOUNT; i++) {
           const newDiv = document.createElement('div');
@@ -66,10 +67,9 @@
           const duration = `${durationLength1}s, ${durationLength2}s`;
           newDiv.style.setProperty('-webkit-animation-duration', duration);
           newDiv.style.setProperty('animation-duration', duration);
-          // }
-
-          flakeContainer.append(newDiv);
+          fragment.append(newDiv);
         }
+        flakeContainer.append(fragment);
         console.log({ FLAKE_AMOUNT });
       };
 
